@@ -37,6 +37,8 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
+gem "devise"
+
 gem "rspec-rails","~> 2.0", :group => [:test, :development]
 group :test do
   gem "factory_girl_rails"
