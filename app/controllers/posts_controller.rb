@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+
+  load_and_authorize_resource
+
   # GET /posts
   # GET /posts.json
   def index
@@ -76,7 +79,7 @@ class PostsController < ApplicationController
     @post.destroy
 
     respond_to do |format|
-      format.html { redirect_to posts_url }
+      format.html { redirect_to posts_url, notice: 'Post was successfully deleted.' }
       format.json { head :no_content }
     end
   end
