@@ -7,7 +7,7 @@ class Ability
 
     if user
       can :create, Post
-      can [:update, :destroy], Post do |post|
+      can [:update, :destroy, :unpublished], Post do |post|
         post.try(:user) == user
       end
     end

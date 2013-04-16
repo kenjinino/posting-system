@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.published
 
     respond_to do |format|
       format.html # index.html.erb
@@ -81,6 +81,17 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully deleted.' }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /posts/unpublished
+  # GET /posts/unpublished.json
+  def unpublished
+    @posts = Post.where("published != ?", true).order("published_at desc")
+
+    respond_to do |format|
+      format.html 
+      format.json { render json: @posts }
     end
   end
 end

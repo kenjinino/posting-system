@@ -3,6 +3,7 @@ FactoryGirl.define do
   factory :post do
     sequence(:title) { |n| "Post's title #{n}" }
     sequence(:body) { |n| "Post's body #{n}" }
+    published true
     user
   end
 

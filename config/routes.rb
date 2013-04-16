@@ -1,5 +1,7 @@
 PostingSystem::Application.routes.draw do
-  resources :posts
+  resources :posts do 
+    get 'unpublished', on: :collection
+  end
 
 
   devise_for :users
