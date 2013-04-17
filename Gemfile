@@ -44,4 +44,10 @@ group :test do
   gem "factory_girl_rails"
   gem "capybara"
   gem "guard-rspec"
+  gem "database_cleaner"
+  gem "launchy"
+  gem "fuubar"
 end
+
+gem "cancan"
+

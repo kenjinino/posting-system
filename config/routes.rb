@@ -1,5 +1,8 @@
 PostingSystem::Application.routes.draw do
-  get "home/index"
+  resources :posts do 
+    get 'unpublished', on: :collection
+  end
+
 
   devise_for :users
 
@@ -60,6 +63,6 @@ PostingSystem::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 
-  root :to => 'home#index'
+  root :to => 'posts#index'
 
 end
