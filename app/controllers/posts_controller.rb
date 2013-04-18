@@ -5,7 +5,15 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.published
+    @search = Post.search do
+      fulltext params[:search] do
+        highlight :body, :title
+      end
+      with(:published, true)
+      order_by :published_at, :desc
+    end
+
+    @posts = @search.results
 
     respond_to do |format|
       format.html # index.html.erb
