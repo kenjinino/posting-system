@@ -1,5 +1,12 @@
 <h1>Listing posts</h1>
 
+<%= form_tag posts_path, :method => :get do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <table>
   <tr>
     <th>Title</th>
@@ -11,11 +18,11 @@
     <th></th>
   </tr>
 
-<% @posts.each do |post| %>
+<% @search.each_hit_with_result do |hit, post| %>
   <tr>
-    <td><%= post.title %></td>
-    <td><%= post.body %></td>
-    <td><%= post.user %></td>
+    <td><%= simple_format(highlight_keyword(hit, :title)) %></td>
+    <td><%= simple_format(highlight_keyword(hit, :body)) %></td>
+    <td><%= post.user.email %></td>
     <td><%= distance_of_time_in_words_to_now(post.published_at, false) %></td>
     <td><%= link_to 'Show', post %></td>
     <td><%= link_to 'Edit', edit_post_path(post) if can? :update, post %></td>

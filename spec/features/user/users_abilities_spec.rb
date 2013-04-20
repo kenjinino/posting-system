@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Users abilities" do
+describe "Users abilities", solr: true do
 
   context "when a user is not logged in" do
     let!(:post) { FactoryGirl.create(:post) }
@@ -10,6 +10,8 @@ describe "Users abilities" do
 
       describe "show post" do
         it "should have permission to read any posts" do
+          #dont know why but it seems that the post is not shown until posts_path is visited again
+          visit posts_path
           page.should have_link("Show", href: post_path(post))
           click_link("Show")
           page.should have_content(post.title)

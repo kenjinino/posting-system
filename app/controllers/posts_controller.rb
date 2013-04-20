@@ -5,7 +5,15 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.published
+    @search = Post.search do
+      fulltext params[:search] do
+        highlight :body, :title
+      end
+      with(:published, true)
+      order_by :published_at, :desc
+    end
+
+    @posts = @search.results
 
     respond_to do |format|
       format.html # index.html.erb
@@ -87,7 +95,7 @@ class PostsController < ApplicationController
   # GET /posts/unpublished
   # GET /posts/unpublished.json
   def unpublished
-    @posts = Post.where("published != ?", true).order("published_at desc")
+    @posts = Post.where("published != ?", true).order("created_at desc")
 
     respond_to do |format|
       format.html 

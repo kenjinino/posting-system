@@ -47,7 +47,10 @@ group :test do
   gem "database_cleaner"
   gem "launchy"
   gem "fuubar"
+  gem "sunspot-rails-tester"
 end
 
 gem "cancan"
 
+gem "sunspot_rails"
+gem "sunspot_solr", group: :development
