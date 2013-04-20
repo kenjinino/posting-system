@@ -4,6 +4,7 @@ FactoryGirl.define do
     sequence(:title) { |n| "Post's title #{n}" }
     sequence(:body) { |n| "Post's body #{n}" }
     published true
+    published_at Time.now
     user
   end
 

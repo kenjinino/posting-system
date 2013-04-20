@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Posts" do
-  describe "Published posts" do
+  describe "Published posts", solr: true do
     subject { page }
     context "when not logged in" do
       it "cannot access unpublished_posts_path" do

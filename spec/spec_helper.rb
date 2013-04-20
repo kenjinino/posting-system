@@ -10,6 +10,9 @@ require 'database_cleaner'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+
+$original_sunspot_session = Sunspot.session
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
@@ -34,6 +37,16 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  config.before do
+    Sunspot.session = Sunspot::Rails::StubSessionProxy.new($original_sunspot_session)
+  end
+
+  config.before(:each, solr: true) do
+    Sunspot::Rails::Tester.start_original_sunspot_session
+    Sunspot.session = $original_sunspot_session
+    Sunspot.remove_all!
+  end
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

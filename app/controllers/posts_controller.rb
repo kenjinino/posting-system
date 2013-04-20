@@ -95,7 +95,7 @@ class PostsController < ApplicationController
   # GET /posts/unpublished
   # GET /posts/unpublished.json
   def unpublished
-    @posts = Post.where("published != ?", true).order("published_at desc")
+    @posts = Post.where("published != ?", true).order("created_at desc")
 
     respond_to do |format|
       format.html 
